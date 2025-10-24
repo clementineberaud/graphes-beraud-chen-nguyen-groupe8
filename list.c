@@ -1,4 +1,5 @@
 #include "list.h"
+#include <stdlib.h>
 #include <stdlio.h>
 
 t_cell * createCell (int s, float p){
