@@ -1,15 +1,56 @@
 #include "list.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 
-void printList(t_list list){
-    if (is_empty(list)) {
-        printf("[]");
-    } else {
-        t_cell *cell = list;
-        while (cell != NULL) {
-            print_cell(*cell);
-            cell = cell->next;
+void printList(t_list* list){
+    if (list->head == NULL) {
+        printf("Liste vide\n");
+        return;
+    }
+    t_cell *cell = list->head;
+    printf("Liste pour le sommet %d:",list->head->sommet);
+    printf("[head @] -> ");
+    while (cell != NULL) {
+        printf("(");
+        printf("%d, %f ", cell->sommet, cell->proba);
+        printf(")");
+        if (cell->next !=NULL) {
+            printf(" @-> ");
         }
+        cell = cell->next;
+    }
+}
+
+
+t_list* create_empty_list() {
+    t_list* list = (t_list*) malloc(sizeof(t_list));
+    if (list != NULL) {
+        list->head = NULL;
+    }
+    return list;
+}
+
+
+t_list_adj createEmptyListADJ(int taille) {
+    t_list_adj list_adj;
+    list_adj.taille = taille;
+    list_adj.T = (t_list*) malloc(taille * sizeof(t_list));
+
+    for (int i = 0; i < taille; i++) {
+        t_list* list = create_empty_list();
+        list_adj.T[i] = *list;
+        free(list);
     }
 
+    return list_adj;
 }
+
+
+void printListADJ(t_list_adj adj) {
+    for (int i = 0; i < adj.taille; i++) {
+        printList(&adj.T[i]);
+    }
+}
+
+

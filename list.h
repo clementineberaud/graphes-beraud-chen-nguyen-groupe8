@@ -16,4 +16,9 @@ typedef struct s_list_adj {
   int taille;
 } t_list_adj;
 
+
+void printList(t_list* list);
+t_list* create_empty_list();
+t_list_adj createEmptyListADJ(int taille);
+void printListADJ(t_list_adj adj);
 #endif
