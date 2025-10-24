@@ -1,6 +1,6 @@
 #include "list.h"
 #include <stdlib.h>
-#include <stdlio.h>
+#include <stdio.h>
 
 t_cell * createCell (int s, float p){
     t_cell * newCell=(t_cell*)malloc(sizeof(t_cell));
