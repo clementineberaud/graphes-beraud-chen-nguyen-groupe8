@@ -57,9 +57,9 @@ t_list_adj createEmptyListADJ(int taille) {
     list_adj.T = (t_list*) malloc(taille * sizeof(t_list));
 
     for (int i = 0; i < taille; i++) {
-        t_list* list = create_empty_list();
-        list_adj.T[i] = *list;
-        free(list);
+        t_list list = createEmptyList();
+        list_adj.T[i] = list;
+        free(&list);
     }
 
     return list_adj;
