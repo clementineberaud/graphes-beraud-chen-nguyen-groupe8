@@ -51,15 +51,6 @@ void printList(t_list* list){
 }
 
 
-t_list* create_empty_list() {
-    t_list* list = (t_list*) malloc(sizeof(t_list));
-    if (list != NULL) {
-        list->head = NULL;
-    }
-    return list;
-}
-
-
 t_list_adj createEmptyListADJ(int taille) {
     t_list_adj list_adj;
     list_adj.taille = taille;
