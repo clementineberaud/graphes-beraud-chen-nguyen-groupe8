@@ -1,4 +1,5 @@
 #include "list.h"
+#include <stdlib.h>
 #include <stdlio.h>
 
 t_cell * createCell (int s, float p){
@@ -50,24 +51,15 @@ void printList(t_list* list){
 }
 
 
-t_list* create_empty_list() {
-    t_list* list = (t_list*) malloc(sizeof(t_list));
-    if (list != NULL) {
-        list->head = NULL;
-    }
-    return list;
-}
-
-
 t_list_adj createEmptyListADJ(int taille) {
     t_list_adj list_adj;
     list_adj.taille = taille;
     list_adj.T = (t_list*) malloc(taille * sizeof(t_list));
 
     for (int i = 0; i < taille; i++) {
-        t_list* list = create_empty_list();
-        list_adj.T[i] = *list;
-        free(list);
+        t_list list = createEmptyList();
+        list_adj.T[i] = list;
+        free(&list);
     }
 
     return list_adj;
