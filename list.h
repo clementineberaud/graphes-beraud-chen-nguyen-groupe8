@@ -17,4 +17,3 @@ typedef struct s_list_adj {
 } t_list_adj;
 
 #endif
-
