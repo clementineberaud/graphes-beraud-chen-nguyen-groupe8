@@ -19,4 +19,10 @@ typedef struct s_list_adj {
 t_cell * createCell (int s, float p);
 t_list createEmptyList ();
 void addCell (t_list * list, int s, float p);
+void printList(t_list* list);
+t_list* create_empty_list();
+t_list_adj createEmptyListADJ(int taille);
+void printListADJ(t_list_adj adj);
+
+
 #endif
