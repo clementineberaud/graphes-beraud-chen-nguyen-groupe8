@@ -22,7 +22,7 @@ t_list_adj readGraph(const char *filename)
     exit(EXIT_FAILURE);
   }
 
-  graph = createEmptyListAdj(nbvert);
+  graph = createEmptyListADJ(nbvert);
   while (fscanf(file, "%d %d %f", &depart, &arrivee, &proba) == 3)
   {
     // on obtient, pour chaque ligne du fichier les valeurs depart, arrivee, proba
@@ -30,4 +30,28 @@ t_list_adj readGraph(const char *filename)
   }
   fclose(file);
   return graph;
+}
+
+void grapheMarkov (t_list_adj* list) {
+  int verif=1;
+  //verif indique si c'est un graphe de Markov; il passe à 0 quand les probas d'un sommet ne sont pas égales à 1
+  float somme=0;
+  for (int i=0;i<list->taille;i++){
+    t_cell * temp=list->T[i].head;
+    while (temp->next!=NULL) { //somme des probabs d'un sommet
+      somme+= temp->proba;
+      temp=temp->next;
+    }
+    somme+= temp->proba;
+    if ((somme<0.99) || (somme>1)){ //on verifie que la somme est entre 0.99 et 1
+        printf("La somme des probabilités du sommet %d est %f",i+1,somme);
+        verif=0;
+    }
+  }
+  if (verif==0) {
+    printf("Le graphe n'est pas un graphe de Markov");
+  } else {
+    printf("Le graphe est un graphe de Markov");
+  }
+
 }
