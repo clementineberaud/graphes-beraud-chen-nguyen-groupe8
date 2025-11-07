@@ -11,8 +11,8 @@ t_cell * createCell (int s, float p){
 }
 
 t_list createEmptyList () {
-  t_list list=(t_list)malloc(sizeof(t_list));
-  list->head=NULL;
+  t_list list;
+  list.head=NULL;
   return list;
 }
 
