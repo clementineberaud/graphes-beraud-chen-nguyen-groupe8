@@ -3,4 +3,6 @@
 
 t_list_adj readGraph(const char *filename);
 
+t_list_adj printGraph(const char *filename);
+
 #endif //GRAPHES_H
