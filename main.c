@@ -1,15 +1,14 @@
 #include <stdio.h>
-
-#include "list.h"
-
 #include <stdlib.h>
-#include "hasse.h"
 #include "list.h"
-#include "graph.h"
+//#include "hasse.h"
+#include "graphes.h"
 #include "utils.h"
 
 
 int main() {
-    printf("Hello, World!\n");
+    printGraph("../data/exemple1.txt");
+    t_list_adj graph=readGraph("../data/exemple1.txt");
+    grapheMarkov(&graph);
     return 0;
 }
