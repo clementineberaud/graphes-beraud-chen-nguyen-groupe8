@@ -4,9 +4,24 @@
 
 #ifndef TARJAN_H
 #define TARJAN_H
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
 
+typedef struct s_tarjan_vertex {
+    int num_sommet;
+    int numero;
+    int num_accessible;
+    bool indicateur;
+}t_tarjan_vertex;
 
+typedef t_tarjan_vertex* t_tab_tarjan;
 
+typedef struct s_classe {
+    char nom_classe;
+    int nb_sommet;
+}t_classe;
 
+typedef t_classe* t_graphe;
 
 #endif //TARJAN_H
