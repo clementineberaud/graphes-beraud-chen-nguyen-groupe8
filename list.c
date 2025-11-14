@@ -11,7 +11,11 @@ t_cell * createCell (int s, float p){
 }
 
 t_list createEmptyList () {
+
+  t_list list=(t_list)malloc(sizeof(t_list));
+
   t_list list;
+
   list.head=NULL;
   return list;
 }
@@ -71,5 +75,6 @@ void printListADJ(t_list_adj adj) {
         printList(&adj.T[i]);
     }
 }
+
 
 
