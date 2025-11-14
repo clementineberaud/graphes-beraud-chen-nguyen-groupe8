@@ -10,6 +10,7 @@ t_tarjan_vertex graph_to_tab(t_list_adj graph)
         tab[i].num_accessible = -1;
         tab[i].indicateur = 0;
     }
+    return tab;
 }
 
 t_stacklist create_stack() {
@@ -23,7 +24,6 @@ void push(t_stacklist* stack, int val) {
     cell->next = stack->head;
     stack->head = cell;
 }
-
 
 int pop(t_stacklist* stack) {
     int val = top(stack);
