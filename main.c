@@ -1,10 +1,7 @@
 #include <stdio.h>
-
-#include "list.h"
-
 #include <stdlib.h>
-#include "hasse.h"
 #include "list.h"
+#include "hasse.h"
 #include "graph.h"
 #include "utils.h"
 

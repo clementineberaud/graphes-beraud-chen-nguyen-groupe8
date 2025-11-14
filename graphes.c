@@ -2,7 +2,7 @@
 #include "list.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "util.h"
+#include "utils.h"
 
 t_list_adj readGraph(const char *filename)
 {
@@ -23,7 +23,7 @@ t_list_adj readGraph(const char *filename)
     	exit(EXIT_FAILURE);
     }
 
-  	graph = createEmptyListAdj(nbvert);
+  	graph = createEmptyListADJ(nbvert);
   	while (fscanf(file, "%d %d %f", &depart, &arrivee, &proba) == 3)
   	{
     	// on obtient, pour chaque ligne du fichier les valeurs depart, arrivee, proba
