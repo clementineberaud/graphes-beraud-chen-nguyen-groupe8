@@ -10,13 +10,11 @@ t_cell * createCell (int s, float p){
     return newCell;
 }
 
-t_list createEmptyList () {
+t_list * createEmptyList () {
 
-  t_list list=(t_list)malloc(sizeof(t_list));
+  t_list * list=(t_list*)malloc(sizeof(t_list));
 
-  t_list list;
-
-  list.head=NULL;
+  list->head=NULL;
   return list;
 }
 
@@ -61,9 +59,9 @@ t_list_adj createEmptyListADJ(int taille) {
     list_adj.T = (t_list*) malloc(taille * sizeof(t_list));
 
     for (int i = 0; i < taille; i++) {
-        t_list list = createEmptyList();
-        list_adj.T[i] = list;
-        free(&list);
+        t_list *list = createEmptyList();
+        list_adj.T[i] = *list;
+        free(list);
     }
 
     return list_adj;

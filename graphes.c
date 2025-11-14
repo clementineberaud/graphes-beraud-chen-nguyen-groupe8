@@ -35,9 +35,13 @@ t_list_adj readGraph(const char *filename)
 
 void printGraph(const char *filename)
 {
-  	graph = readGraph(filename);
-	FILE *file = fopen("printedGraph.txt", "wt"); // write-only, text
+  	t_list_adj graph = readGraph(filename);
+	FILE *file = fopen("../printedGraph.txt", "wt"); // write-only, text
 
+	if (file == NULL) {
+		printf("Error, file not found\n");
+		return;
+	}
     // directives de configuration
     fprintf(file, "---\nconfig:\n");
     fprintf(file, "\tlayout: elk\n\ttheme: neo\n\tlook: neo\n");
@@ -47,16 +51,21 @@ void printGraph(const char *filename)
     fprintf(file, "flowchart LR\n");
     for (int i = 0; i < graph.taille; i++)
     {
-    	char *val = getId(graph.T[i]->depart); // nombre converti en lettre
-        fprintf(file, "%s((%d))\n", val, graph.T[i]->depart);
+    	char *val = getID(i+1); // nombre converti en lettre
+        fprintf(file, "%s((%d))\n", val, i+1);
     }
 
     // arêtes, avec leurs probabilités
     for (int i = 0; i < graph.taille; i++) {
-      	char *val1 = getId(graph.T[i]->depart); // sommet de départ (converti en lettre)
-        char *val2 = getId(graph.T[i]->arrivee); // sommet d'arrivée (converti en lettre)
-        double proba = graph.T[i]->proba; // probabilité associée
-    	fprintf(file, "%s -->|%lf|%s\n", val1, proba, val2);
+    	t_cell * temp=graph.T[i].head;
+    	while (temp!=NULL) {
+    		char *val1 = getID(i+1);
+    		fprintf(file, "%s ",val1);// sommet de départ (converti en lettre)
+    		char *val2 = getID(temp->sommet); // sommet d'arrivée (converti en lettre)
+    		double proba = temp->proba; // probabilité associée
+    		fprintf(file, "-->|%.2lf|%s\n", proba, val2);
+    		temp=temp->next;
+    	}
     }
   
     fclose(file);
@@ -67,6 +76,7 @@ void grapheMarkov (t_list_adj* list) {
   //verif indique si c'est un graphe de Markov; il passe à 0 quand les probas d'un sommet ne sont pas égales à 1
   float somme=0;
   for (int i=0;i<list->taille;i++){
+  	somme=0;
     t_cell * temp=list->T[i].head;
     while (temp->next!=NULL) { //somme des probabs d'un sommet
       somme+= temp->proba;
@@ -74,13 +84,13 @@ void grapheMarkov (t_list_adj* list) {
     }
     somme+= temp->proba;
     if ((somme<0.99) || (somme>1)){ //on verifie que la somme est entre 0.99 et 1
-        printf("La somme des probabilités du sommet %d est %f",i+1,somme);
+        printf("La somme des probabilites du sommet %d est %.2f\n",i+1,somme);
         verif=0;
     }
   }
   if (verif==0) {
-    printf("Le graphe n'est pas un graphe de Markov");
+    printf("Le graphe n'est pas un graphe de Markov.\n");
   } else {
-    printf("Le graphe est un graphe de Markov");
+    printf("Le graphe est un graphe de Markov.\n");
   }
 }

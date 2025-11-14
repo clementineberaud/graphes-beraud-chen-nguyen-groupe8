@@ -11,6 +11,8 @@ typedef struct s_tarjan_vertex {
     bool indicateur;
 }t_tarjan_vertex;
 
+typedef t_tarjan_vertex* t_tab_tarjan;
+
 typedef struct s_stackcell {
     t_stackcell* head;
     t_tarjan_vertex sommet;
@@ -28,6 +30,8 @@ typedef struct s_classe {
     char nom_classe;
     int nb_sommet;
 }t_classe;
+
+typedef t_classe* t_graphe;
 
 void push(t_stacklist* stack, int val);
 
