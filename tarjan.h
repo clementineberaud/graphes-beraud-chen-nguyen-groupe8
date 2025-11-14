@@ -9,16 +9,16 @@
 #include <stdbool.h>
 
 typedef struct s_tarjan_vertex {
-    int identifiant;
+    int num_sommet;
     int numero;
     int num_accessible;
     bool indicateur;
 }t_tarjan_vertex;
 
-typedef t_tarjan_vertex* t_tarjan;
+typedef t_tarjan_vertex* t_graphe;
 
 typedef struct s_classe {
-    char nom;
+    char nom_classe;
     int nb_sommet;
 }t_classe;
 
