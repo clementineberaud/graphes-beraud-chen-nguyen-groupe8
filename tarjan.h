@@ -40,4 +40,6 @@ int pop(t_stacklist* stack);
 
 typedef t_classe* t_partition;
 
+void parcours(int v, t_list_adj* G, t_tab_tarjan tab, t_stacklist* P, int* num, int** partition, int* nbCFC);
+
 #endif //TARJAN_H
