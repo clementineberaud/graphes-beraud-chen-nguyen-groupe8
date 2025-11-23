@@ -52,7 +52,7 @@ int cpt_sommet (t_list_adj graph, int sommet){ //on compte le nb de sommets d'ar
 
 t_link_array* diagramme_hasse (t_list_adj graph, t_partition par) { //renvoie un tableau de liens des classes
   int * classes=tab_classes(par,graph);
-  t_link_array *tab=(t_link_array*)malloc(sizeof(t_link_array*));
+  t_link_array *tab=(t_link_array*)malloc(sizeof(t_link_array));
   tab->links=NULL;
   tab->log_size=0;
   for (int i=0;i<graph.taille;i++) {

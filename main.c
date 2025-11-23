@@ -24,11 +24,13 @@ int main()
 
     print_tarjan(part);
     printDiagrammeHasse(part,graph);
+    printf("Stop 2");
     printf("\n");
   
     //test partie 3
     printf("Test partie 3 :\n");
     carac_graphe_markov(graph);
+    printf("Stop 3");
     printf("\n");
 
     // ====== Lire le fichier météo ======
