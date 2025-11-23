@@ -36,6 +36,6 @@
 - Semaine du 24 au 28 Novembre : Soutenances de projet.
 
 # Répartition :
-- Clémentine : partie 1 étape 1 (structures et fonctions), partie 1 étape 2; partie 2 étape 1; partie 3 étape 2.
+- Clémentine : partie 1 étape 1 (structures et fonctions), partie 1 étape 2; partie 2 étape 2; partie 2 étape 3.
 - Lana : partie 1 étape 1 (structures et fonctions); partie 2 étape 3; partie 3 étape 2.
 - Emilie : partie 1 étape 1 (créer un graphe), partie 1 étape 3; partie 2 étape 2; partie 3 étape 1, partie 3 étape 2.
