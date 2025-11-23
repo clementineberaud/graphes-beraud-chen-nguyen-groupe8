@@ -22,7 +22,7 @@
 # Dates clés :
 - Semaine du 13 au 17 octobre : Publication des parties 1 puis 2
 - Semaine du 20 au 24 octobre : Séance de projet n°1
-  Objectifs :
+  - Objectifs :
     - Inscription des trinômes sur Moodle ;
     - Récupération de la base de code via GIT ;
     - Réalisation des parties : chargement de graphe, vérification de graphes.
@@ -30,7 +30,7 @@
 - Semaine du 3 au 7 Novembre : Publication de la grille d’évaluation du projet.
 - Vendredi 7 Novembre : Dépôt de la partie 1 terminée sur Moodle
 - Semaine du 10 au 14 Novembre : Séance de projet n°2
-  Objectifs :
+  - Objectifs :
     - Travail sur la partie 2.
 - Dimanche 23 Novembre : Dépôt final du projet, parties 1,2 et 3
 - Semaine du 24 au 28 Novembre : Soutenances de projet.
