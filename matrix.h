@@ -9,4 +9,18 @@ void copy_matrix(float **M1, float **M2, int n);
 float **multiply_matrix(float **M1, float **M2, int n);
 float diff_matrices(float **M1, float **M2, int n);
 
+typedef struct {
+    int** list_sommet;
+    int* nb_sommet;
+    int nb_composant;
+} t_partition;
+
+typedef struct {
+    int rows;
+    int cols;
+    float** data;
+} t_matrix;
+
+t_matrix subMatrix(t_matrix matrix, t_partition part, int compo_index);
+
 #endif //MATRIX_H

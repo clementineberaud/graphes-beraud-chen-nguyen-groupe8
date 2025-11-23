@@ -35,45 +35,45 @@ int pop(t_stacklist* stack) {
 
 
 
-void parcours(int v, t_list_adj* G, t_tab_tarjan tab, t_stacklist* P, int* num, int** partition, int* nbCFC){
-    tab[v].numero = *num;
-    tab[v].num_accessible = *num;
-    (*num)++;
+void parcours(int sommet_curr, t_list_adj* graph_adj, t_tab_tarjan tab, t_stacklist* pile_sommet, int* cpt, int** partition, int* nbCFC){
+    tab[sommet_curr].numero = *cpt;
+    tab[sommet_curr].num_accessible = *cpt;
+    (*cpt)++;
 
-    push(P, v);
-    tab[v].indicateur = true;
+    push(pile_sommet, sommet_curr);
+    tab[sommet_curr].indicateur = true;
     
-    t_cell* cur = G->T[v].head;
+    t_cell* cur = graph_adj->T[sommet_curr].head;
 
     while (cur != NULL) {
-        int w = cur->sommet;
+        int sommet_succ = cur->sommet;
 
-        if (tab[w].numero == -1) {
-            parcours(w, G, tab, P, num, partition, nbCFC);
-            if (tab[w].num_accessible < tab[v].num_accessible)
-                tab[v].num_accessible = tab[w].num_accessible;
+        if (tab[sommet_succ].numero == -1) {
+            parcours(sommet_succ, graph_adj, tab, pile_sommet, cpt, partition, nbCFC);
+            if (tab[sommet_succ].num_accessible < tab[sommet_curr].num_accessible)
+                tab[sommet_curr].num_accessible = tab[sommet_succ].num_accessible;
         }
-        else if (tab[w].indicateur) {
-            if (tab[w].numero < tab[v].num_accessible)
-                tab[v].num_accessible = tab[w].numero;
+        else if (tab[sommet_succ].indicateur) {
+            if (tab[sommet_succ].numero < tab[sommet_curr].num_accessible)
+                tab[sommet_curr].num_accessible = tab[sommet_succ].numero;
         }
 
         cur = cur->next;
     }
     
-    if (tab[v].num_accessible == tab[v].numero) {
+    if (tab[sommet_curr].num_accessible == tab[sommet_curr].numero) {
 
-        int* cfc = malloc(G->taille * sizeof(int));
-        int cpt = 0;
-        int w;
+        int* tab_temp = malloc(graph_adj->taille * sizeof(int));
+        int local_cpt = 0;
+        int sommet_depile;
 
         do {
-            w = pop(P);
-            tab[w].indicateur = false;
-            cfc[cpt++] = w;
-        } while (w != v);
+            sommet_depile = pop(pile_sommet);
+            tab[sommet_depile].indicateur = false;
+            tab_temp[local_cpt++] = sommet_depile;
+        } while (sommet_depile != sommet_curr);
 
-        partition[*nbCFC] = cfc;
+        partition[*nbCFC] = tab_temp;
         (*nbCFC)++;
     }
 }
