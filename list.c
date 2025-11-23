@@ -31,8 +31,6 @@ void addCell (t_list * list, int s, float p) {
 }
 
 
-
-
 void printList(t_list* list){
     if (list->head == NULL) {
         printf("Liste vide\n");
@@ -73,6 +71,3 @@ void printListADJ(t_list_adj adj) {
         printList(&adj.T[i]);
     }
 }
-
-
-

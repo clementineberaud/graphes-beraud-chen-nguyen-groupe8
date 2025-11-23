@@ -18,6 +18,7 @@ t_matrix create_matrix_zero(int n)
     return M;
 }
 
+
 t_matrix graph_to_matrix(t_list_adj *list)
 {
     t_matrix M = create_matrix_zero(list->taille);
@@ -32,6 +33,7 @@ t_matrix graph_to_matrix(t_list_adj *list)
     return M;
 }
 
+
 void copy_matrix(t_matrix M1, t_matrix M2)
 {
     for (int i = 0; i < M1.rows; i++) {
@@ -40,6 +42,7 @@ void copy_matrix(t_matrix M1, t_matrix M2)
         }
     }
 }
+
 
 t_matrix multiply_matrix(t_matrix M1, t_matrix M2) // ligne i de M1 x colonne j de M2
 {
@@ -54,6 +57,7 @@ t_matrix multiply_matrix(t_matrix M1, t_matrix M2) // ligne i de M1 x colonne j 
     }
     return M3;
 }
+
 
 float diff_matrices(t_matrix M1, t_matrix M2) // cf formule sujet
 {
@@ -70,6 +74,7 @@ float diff_matrices(t_matrix M1, t_matrix M2) // cf formule sujet
     }
     return somme;
 }
+
 
 t_matrix subMatrix(t_matrix matrix, t_partition part, int compo_index)
 {
@@ -88,6 +93,7 @@ t_matrix subMatrix(t_matrix matrix, t_partition part, int compo_index)
     return sub;
 }
 
+
 void print_matrix(t_matrix M)
 {
     int n = M.rows;
@@ -99,6 +105,7 @@ void print_matrix(t_matrix M)
     }
     printf("\n");
 }
+
 
 void free_matrix(t_matrix M) {
     for (int i = 0; i < M.rows; i++)

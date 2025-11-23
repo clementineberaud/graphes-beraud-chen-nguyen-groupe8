@@ -4,7 +4,6 @@
 #include "graphes.h"
 #include "list.h"
 
-
 t_tarjan_vertex *graph_to_tab(t_list_adj graph)
 {
     t_tarjan_vertex *tab = (t_tarjan_vertex*) malloc(sizeof(t_tarjan_vertex) * graph.taille);
@@ -17,12 +16,14 @@ t_tarjan_vertex *graph_to_tab(t_list_adj graph)
     return tab;
 }
 
+
 t_stacklist create_stack() // créer pile
 {
     t_stacklist stack;
     stack.head = NULL; // initialisation de la pile à NULL
     return stack;
 }
+
 
 int pop(t_stacklist* stack) {
     if (stack == NULL || stack->head == NULL) {
@@ -36,6 +37,7 @@ int pop(t_stacklist* stack) {
     return val;
 }
 
+
 t_stackcell *create_cell(int val)
 {
     t_stackcell *newCell = (t_stackcell*) malloc(sizeof(t_stackcell));
@@ -43,6 +45,7 @@ t_stackcell *create_cell(int val)
     newCell->next = NULL;
     return newCell;
 }
+
 
 void push(t_stacklist *stack, int val) // ajout d'une valeur dans pile (au début de la liste)
 {
@@ -52,13 +55,14 @@ void push(t_stacklist *stack, int val) // ajout d'une valeur dans pile (au débu
 
 }
 
+
 int top(t_stacklist* stack)
 {
     if (stack->head == NULL) { // pile vide
         printf("Pop from empty stack\n");
         exit(EXIT_FAILURE);
     }
-    return stack->head->sommet; // 	retourne la valeur du sommet (dernier élément ajouté)
+    return stack->head->sommet; // retourne la valeur du sommet (dernier élément ajouté)
 }
 
 
@@ -75,7 +79,7 @@ void parcours(t_tarjan_vertex* tab, int v_index, t_list_adj graph, t_stacklist* 
     while (curr != NULL) {
         int w_index = curr->sommet - 1;
         t_tarjan_vertex* w = tab + w_index;
-        if (w->numero == -1) { // si w n'a pas encore été visité on appelle parcours
+        if (w->numero == -1) { // si w n'a pas encore été visité, on appelle parcours
             parcours(tab, w_index, graph, P, num, partition);
             if (w->num_accessible < v->num_accessible)
                 v->num_accessible = w->num_accessible;
@@ -108,6 +112,7 @@ void parcours(t_tarjan_vertex* tab, int v_index, t_list_adj graph, t_stacklist* 
     }
 }
 
+
 t_partition tarjan(t_list_adj graph)
 {
     int num = 0;
@@ -116,9 +121,9 @@ t_partition tarjan(t_list_adj graph)
     partition.nb_composant = 0;
     partition.list_sommet = malloc(sizeof(int*) * graph.taille);
     partition.nb_sommet = malloc(sizeof(int) * graph.taille);
-    t_tarjan_vertex* tab = graph_to_tab(graph); //on initialise les sommets
+    t_tarjan_vertex* tab = graph_to_tab(graph); // on initialise les sommets
 
-    for (int i = 0; i < graph.taille; i++) { //on parcourt tous les sommets non visités
+    for (int i = 0; i < graph.taille; i++) { // on parcourt tous les sommets non visités
         if (tab[i].numero == -1) {
             parcours(tab, i, graph, &P, &num, &partition);
         }
@@ -126,6 +131,7 @@ t_partition tarjan(t_list_adj graph)
     free(tab);
     return partition;
 }
+
 
 void print_tarjan (t_partition part) { // affiche la partition
     for (int i=0;i<part.nb_composant;i++) {
@@ -139,7 +145,8 @@ void print_tarjan (t_partition part) { // affiche la partition
     }
 }
 
-t_partition partition_test() { //fonction test si les fonction tarjan et parcours ne marchent pas
+
+t_partition partition_test() { // fonction test si les fonctions tarjan et parcours ne marchent pas
     t_partition part;
 
     part.nb_composant = 6;
@@ -181,5 +188,3 @@ t_partition partition_test() { //fonction test si les fonction tarjan et parcour
     part.list_sommet[5][0] = 10;
     return part;
 }
-
-
