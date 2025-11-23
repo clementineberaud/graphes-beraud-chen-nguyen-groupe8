@@ -6,9 +6,9 @@
 - NGUYEN Emilie
 
 # Présentation générale
-Langage : C
-Bibliothèques : <stdio.h>, <stdlib.h>
-Outils : CLion, GitHub
+- Langage : C
+- Bibliothèques : <stdio.h>, <stdlib.h>
+- Outils : CLion, GitHub
 
 # Documentation technique
 - main.c
@@ -36,6 +36,6 @@ Outils : CLion, GitHub
 - Semaine du 24 au 28 Novembre : Soutenances de projet.
 
 # Répartition :
-Clémentine : partie 1 étape 1 (structures et fonctions), partie 1 étape 2,
-Lana : partie 1 étape 1 (structures et fonctions),
-Emilie : partie 1 étape 1 (créer un graphe), partie 1 étape 3,
+- Clémentine : partie 1 étape 1 (structures et fonctions), partie 1 étape 2,
+- Lana : partie 1 étape 1 (structures et fonctions),
+- Emilie : partie 1 étape 1 (créer un graphe), partie 1 étape 3,
