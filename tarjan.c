@@ -4,24 +4,70 @@
 #include "graphes.h"
 #include "list.h"
 
+
 t_tarjan_vertex *graph_to_tab(t_list_adj graph)
 {
     t_tarjan_vertex *tab = (t_tarjan_vertex*) malloc(sizeof(t_tarjan_vertex) * graph.taille);
     for (int i = 0; i < graph.taille; i++) {
-        tab[i].num_sommet = i+1;
+
+        tab[i].num_sommet = i + 1;
+
         tab[i].numero = -1;
         tab[i].num_accessible = -1;
-        tab[i].indicateur = 0;
+        tab[i].indicateur = -1;
     }
     return tab;
 }
 
+
 t_stacklist create_stack() // créer pile
+
 {
     t_stacklist stack;
     stack.head = NULL; // initialisation de la pile à NULL
     return stack;
 }
+
+
+
+t_stackcell *create_cell(int val)
+{
+    t_stackcell *newCell = (t_stackcell*) malloc(sizeof(t_stackcell));
+    newCell->sommet = val;
+    newCell->next = NULL;
+    return newCell;
+}
+
+
+void push(t_stacklist *stack, int val)
+{
+    t_stackcell *cell = create_cell(val);
+    cell->next = stack->head;
+    stack->head = cell;
+}
+
+
+int top(t_stacklist* stack)
+{
+    if (stack->head == NULL) {
+        printf("Top from empty stack\n");
+        exit(EXIT_FAILURE);
+    }
+    return stack->head->sommet;
+}
+
+
+int pop(t_stacklist* stack)
+{
+    if (stack == NULL || stack->head == NULL) {
+        printf("Pop from empty stack\n");
+        exit(EXIT_FAILURE);
+    }
+    t_stackcell* tmp = stack->head;
+    int val = tmp->sommet;
+    stack->head = tmp->next;
+    free(tmp);
+    return val;
 
 t_stackcell *create_cell(int val)
 {
@@ -36,6 +82,7 @@ void push(t_stacklist *stack, int val) // ajout d'une valeur dans pile (au débu
     t_cell *cell = create_cell(val);
     cell->next = stack->head; // on fait pointer cell->next vers l'ancienne tête
     stack->head = cell; // on met à jour la tête de la pile
+
 }
 
 int top(t_stacklist* stack)
@@ -47,85 +94,145 @@ int top(t_stacklist* stack)
     return stack->head->sommet; // 	retourne la valeur du sommet (dernier élément ajouté)
 }
 
-int pop(t_stacklist* stack)
-{
-    if (stack == NULL || stack->head == NULL) { // pile existe et pas vide
-        printf("Pop from empty stack\n");
-        exit(1);
-    }
-    t_stackcell* tmp = stack->head; // stocke le sommet actuel
-    int val = tmp->sommet; // valeur du sommet actuel
-    stack->head = tmp->next; // met à jour la tête de la pile
-    free(tmp);
-    return val;
-}
 
 void parcours(t_tarjan_vertex* tab, int v_index, t_list_adj graph, t_stacklist* P, int* num, t_partition* partition)
 {
-    t_tarjan_vertex* v = tab + v_index; // on récupère le sommet actuel v à partir de son indice v_index
-    v->numero = *num; // on assigne le numéro d'exploration actuel à v
-    v->num_accessible = *num;
-    (*num)++; // on incrémente le compteur global de num pour le prochain sommet
-    push(P, v->num_sommet); // on empile le sommet v dans la pile P
-    v->indicateur = true; // le sommet est dans la pile
+    t_tarjan_vertex* v = tab + v_index;
 
-    // parcours de tous les successeurs w de v
+
+    v->numero = *num;
+    v->num_accessible = *num;
+    (*num)++;
+
+    push(P, v->num_sommet);
+    v->indicateur = 1;
+
+
     t_cell* curr = (*(graph.T + v_index)).head;
     while (curr != NULL) {
-        // on récupère l'indice du successeur
         int w_index = curr->sommet - 1;
+
         t_tarjan_vertex* w = tab + w_index;
 
-        if (w->numero == -1) { // si le successeur n'a pas encore été visité
-            parcours(tab, w_index, graph, P, num, partition); // appel récursif pour explorer w
+        if (w->numero == -1) { //si w n'a pas encore été visité on appelle parcours
+
+            parcours(tab, w_index, graph, P, num, partition);
+
+
             if (w->num_accessible < v->num_accessible)
-                v->num_accessible = w->num_accessible; // mise à jour du numéro accessible le plus bas depuis v
-        }
-        else if (w->indicateur) { // si le successeur a été visité (il est dans la pile)
+                v->num_accessible = w->num_accessible;
+        } else if (w->indicateur == 1) {
+
             if (w->numero < v->num_accessible)
-                v->num_accessible = w->numero; // mise à jour du plus petit numéro accessible de v
+                v->num_accessible = w->numero;
         }
-        curr = curr->next; // passage au successeur suivant
+        curr = curr->next;
     }
 
-    if (v->num_accessible == v->numero) { // si v est racine d'une composante fortement connexe
-        int C_size = 0; // taille de la composante actuelle
-        int* C_sommets = NULL; // tableau pour stocker les sommets de la composante
 
+    if (v->num_accessible == v->numero) {
+        int C_size = 0;
+        int* C_sommets = NULL;
         int w_num;
+
+        //on dépile tous les sommets de la composante
         do {
             w_num = pop(P);
             t_tarjan_vertex* w = tab + (w_num - 1);
-            w->indicateur = false; // le sommet a été retiré de la pile
+            w->indicateur = -1;
             C_sommets = realloc(C_sommets, sizeof(int) * (C_size + 1));
-            *(C_sommets + C_size) = w_num;
+            C_sommets[C_size] = w_num;
             C_size++;
-        } while (w_num != v->num_sommet); // tant que c'est pas v
+        } while (w_num != v->num_sommet);
 
-        // ajout de la composante dans la partition
-        partition->list_sommet = realloc(partition->list_sommet, sizeof(int*) * (partition->nb_composant + 1));
-        *(partition->list_sommet + partition->nb_composant) = C_sommets;
-        partition->nb_sommet = realloc(partition->nb_sommet, sizeof(int) * (partition->nb_composant + 1));
-        *(partition->nb_sommet + partition->nb_composant) = C_size;
-        partition->nb_composant++; // on augmente le nombre de composantes trouvées
+        // Ajoute la composante à la partition
+        partition->list_sommet[partition->nb_composant] = C_sommets;
+        partition->nb_sommet[partition->nb_composant] = C_size;
+        partition->nb_composant++;
     }
 }
 
-t_partition tarjan(t_list_adj graph) {
-    int num = 0; // compteur global pour numéroter les sommets
-    t_stacklist P = create_stack(); // pile vide pour les sommets
-    t_partition partition;
-    partition.nb_composant = 0;
-    partition.list_sommet = malloc(sizeof(int*) * graph.taille); // allocation du tableau des composantes
-    partition.nb_sommet = malloc(sizeof(int) * graph.taille);   // allocation des tailles des composantes
-    t_tarjan_vertex* tab = graph_to_tab(graph); // initialisation des t_tarjan_vertex
 
-    // Parcours de tous les sommets non visités
-    for (int i = 0; i < graph.taille; i++) {
-        if ((*(tab + i)).numero == -1) { // sommet pas encore visité
-            parcours(tab, i, graph, &P, &num, &partition); // lancement du parcours récursif
+t_partition tarjan(t_list_adj graph)
+{
+    int num = 0;
+    t_stacklist P = create_stack();
+    t_partition partition;
+
+    partition.nb_composant = 0;
+    partition.list_sommet = malloc(sizeof(int*) * graph.taille);
+    partition.nb_sommet = malloc(sizeof(int) * graph.taille);
+
+    t_tarjan_vertex* tab = graph_to_tab(graph); //on initialise les sommets
+
+
+    for (int i = 0; i < graph.taille; i++) { //on parcourt  tous les sommets non visités
+        if (tab[i].numero == -1) {
+            parcours(tab, i, graph, &P, &num, &partition);
         }
     }
+
     free(tab);
     return partition;
 }
+
+void print_tarjan (t_partition part) { //affiche la partition
+
+
+    for (int i=0;i<part.nb_composant;i++) {
+        printf("Composante C%d : {",i+1); //affiche la classe
+
+        //affiche chaque sommet de la classe
+        for (int j=0;j<part.nb_sommet[i]-1;j++) {
+            printf("%d, ",part.list_sommet[i][j]);
+        }
+
+        printf("%d}\n",part.list_sommet[i][part.nb_sommet[i]-1]);
+
+    }
+}
+
+t_partition partition_test() { //fonction test si les fonction tarjan et parcours ne marchent pas
+    t_partition part;
+
+    part.nb_composant = 6;
+    part.list_sommet = malloc(sizeof(int*) * part.nb_composant);
+    part.nb_sommet   = malloc(sizeof(int) * part.nb_composant);
+
+    //C1
+    part.nb_sommet[0] = 3;
+    part.list_sommet[0] = malloc(sizeof(int) * 3);
+    part.list_sommet[0][0] = 1;
+    part.list_sommet[0][1] = 7;
+    part.list_sommet[0][2] = 5;
+
+    //C2
+    part.nb_sommet[1] = 1;
+    part.list_sommet[1] = malloc(sizeof(int) * 1);
+    part.list_sommet[1][0] = 2;
+
+    //C3
+    part.nb_sommet[2] = 3;
+    part.list_sommet[2] = malloc(sizeof(int) * 3);
+    part.list_sommet[2][0] = 3;
+    part.list_sommet[2][1] = 8;
+    part.list_sommet[2][2] = 6;
+
+    //C4
+    part.nb_sommet[3] = 1;
+    part.list_sommet[3] = malloc(sizeof(int) * 1);
+    part.list_sommet[3][0] = 4;
+
+    //C5
+    part.nb_sommet[4] = 1;
+    part.list_sommet[4] = malloc(sizeof(int) * 1);
+    part.list_sommet[4][0] = 9;
+
+    //C6
+    part.nb_sommet[5] = 1;
+    part.list_sommet[5] = malloc(sizeof(int) * 1);
+    part.list_sommet[5][0] = 10;
+    return part;
+}
+
+

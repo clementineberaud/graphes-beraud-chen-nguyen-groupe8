@@ -40,6 +40,10 @@ int link_in_list (int a, int b, t_link_array *list);
  */
 t_link * createLink (int a, int b);
 
+int* tab_classes (t_partition par, t_list_adj graph);
+
+
+
 
 /**
  * @brief Ajoute un nouveau lien (a → b) dans un tableau de liens.
@@ -66,6 +70,7 @@ void addLink (t_link_array * list, int a, int b);
  * @return t_link_array* Tableau de liens représentant le diagramme de Hasse.
  */
 t_link_array * diagramme_hasse (t_list_adj graph, t_partition par);
+
 
 
 /**

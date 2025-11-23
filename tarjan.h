@@ -10,7 +10,8 @@ typedef struct {
     int num_sommet;
     int numero;
     int num_accessible;
-    bool indicateur;
+    int indicateur;
+
 } t_tarjan_vertex;
 
 typedef t_tarjan_vertex* t_tab_tarjan;
@@ -38,6 +39,15 @@ typedef struct {
     int* nb_sommet;
     int nb_composant;
 } t_partition;
+
+
+
+
+
+void parcours(t_tarjan_vertex* tab, int v_index, t_list_adj graph, t_stacklist* P, int* num, t_partition* partition);
+t_partition tarjan(t_list_adj graph);
+void print_tarjan (t_partition part);
+t_partition partition_test();
 
 
 /**
