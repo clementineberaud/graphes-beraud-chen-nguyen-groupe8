@@ -11,7 +11,6 @@ typedef struct {
 } t_matrix;
 
 
-
 /**
  * @brief Crée une matrice carrée initialisée à zéro.
  *

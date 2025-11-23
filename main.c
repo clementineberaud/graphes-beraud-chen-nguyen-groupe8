@@ -9,22 +9,28 @@
 
 int main()
 {
-  
-     //test partie 1
+    //test partie 1
+    printf("Test partie 1 :\n");
     printGraph("../data/exemple_valid_step3.txt");
     t_list_adj graph=readGraph("../data/exemple_valid_step3.txt");
     grapheMarkov(&graph);
+    printf("\n");
 
     //test partie 2
+    printf("Test partie 2 :\n");
     t_partition part = tarjan(graph);
     t_link_array *tab=diagramme_hasse(graph,part);
     removeTransitiveLinks(tab);
 
     print_tarjan(part);
     printDiagrammeHasse(part,graph);
+    printf("\n");
   
     //test partie 3
+    printf("Test partie 3 :\n");
     carac_graphe_markov(graph);
+    printf("\n");
+
     // ====== Lire le fichier météo ======
     t_list_adj meteo = readGraph("../data/exemple_meteo.txt");
 
@@ -79,7 +85,6 @@ int main()
         k++;
         if (k > 1000) break; // sécurité anti-boucle infinie
     }
-
     printf("M^%d atteint une variation < 0.01 :\n", k);
     print_matrix(Mk);
 
@@ -89,8 +94,6 @@ int main()
     free_matrix(Mk);
     free_matrix(M3);
     free_matrix(M7);
-
-
 
     return 0;
 }

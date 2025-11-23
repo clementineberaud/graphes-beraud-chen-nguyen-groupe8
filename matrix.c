@@ -71,8 +71,6 @@ float diff_matrices(t_matrix M1, t_matrix M2) // cf formule sujet
     return somme;
 }
 
-
-
 t_matrix subMatrix(t_matrix matrix, t_partition part, int compo_index)
 {
     int nombre_sommet = *(part.nb_sommet + compo_index); // nombre de sommets dans la composante
@@ -84,7 +82,7 @@ t_matrix subMatrix(t_matrix matrix, t_partition part, int compo_index)
     // Remplissage de la sous-matrice avec les valeurs correspondantes
     for (int i = 0; i < nombre_sommet; i++) {
         for (int j = 0; j < nombre_sommet; j++) {
-            *(*(sub.val + i) + j) = *(*(matrix.val + *(sommets + i)) + *(sommets + j));
+            *(*(sub.val + i) + j) = *(*(matrix.val + (*(sommets + i) - 1)) + (*(sommets + j) - 1));
         }
     }
     return sub;
