@@ -68,19 +68,30 @@ float diff_matrices(float **M1, float **M2, int n) // cf formule sujet
 
 
 
-t_matrix subMatrix(t_matrix matrix, t_partition part, int compo_index){
-    int nombre_sommet = part.nb_sommet[compo_index]; // nombre de sommets dans la composante
-    int* sommets = part.list_sommet[compo_index]; // tableau des sommets
+float **subMatrix(float **matrix, t_partition part, int compo_index)
+{
+    int nombre_sommet = *(part.nb_sommet + compo_index); // nombre de sommets dans la composante
+    int *sommets = *(part.list_sommet + compo_index); // tableau des indices de sommets
 
-    // Création d'une sous-matrice
-    t_matrix sub = create_matrix_zero(nombre_sommet);
+    // Création de la sous-matrice
+    float **sub = create_matrix_zero(nombre_sommet);
 
-    // Remplissage de la sous-matrice
+    // Remplissage de la sous-matrice avec les valeurs correspondantes
     for (int i = 0; i < nombre_sommet; i++) {
         for (int j = 0; j < nombre_sommet; j++) {
-            sub[i][j] = matrix[sommets[i]][sommets[j]];
+            *(*(sub + i) + j) = *(*(matrix + *(sommets + i)) + *(sommets + j));
         }
     }
-
     return sub;
+}
+
+void print_matrix(float **M, int n)
+{
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            printf("%.2f ", *(*(M + i) + j));
+        }
+        printf("\n");
+    }
+    printf("\n");
 }

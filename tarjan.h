@@ -17,7 +17,7 @@ typedef struct s_tarjan_vertex {
 typedef t_tarjan_vertex* t_tab_tarjan;
 
 typedef struct s_stackcell {
-    t_stackcell* head;
+    struct s_stackcell* head;
     t_tarjan_vertex sommet;
 } t_stackcell;
 
