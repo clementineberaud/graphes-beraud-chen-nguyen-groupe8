@@ -4,13 +4,13 @@
 #include "tarjan.h"
 
 typedef struct s_link {
-  int from;
-  int to;
+  int from;    // indice ou numéro de la classe/sommet de départ
+  int to;    // indice ou numéro de la classe/sommet d'arrivée
 } t_link;
 
 typedef struct {
-  t_link *links;
-  int log_size;
+  t_link *links;    // tableau dynamique contenant tous les liens
+  int log_size;    // nombre actuel de liens stockés dans le tableau
 } t_link_array;
 
 
