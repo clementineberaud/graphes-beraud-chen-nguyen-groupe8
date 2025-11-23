@@ -2,12 +2,29 @@
 #include <stdlib.h>
 #include "list.h"
 #include "graphes.h"
+#include "tarjan.h"
 #include "hasse.h"
 #include "utils.h"
 #include "matrix.h"
 
 int main()
 {
+  
+     //test partie 1
+    printGraph("../data/exemple_valid_step3.txt");
+    t_list_adj graph=readGraph("../data/exemple_valid_step3.txt");
+    grapheMarkov(&graph);
+
+    //test partie 2
+    t_partition part = tarjan(graph);
+    t_link_array *tab=diagramme_hasse(graph,part);
+    removeTransitiveLinks(tab);
+
+    print_tarjan(part);
+    printDiagrammeHasse(part,graph);
+  
+    //test partie 3
+    carac_graphe_markov(graph);
     // ====== Lire le fichier météo ======
     t_list_adj meteo = readGraph("../data/exemple_meteo.txt");
 
@@ -72,6 +89,8 @@ int main()
     free_matrix(Mk);
     free_matrix(M3);
     free_matrix(M7);
+
+
 
     return 0;
 }

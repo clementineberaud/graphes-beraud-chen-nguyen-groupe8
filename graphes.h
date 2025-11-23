@@ -2,6 +2,7 @@
 #define GRAPHES_H
 
 #include "list.h"
+#include "tarjan.h"
 #include "utils.h"
 
 /**
@@ -45,5 +46,7 @@ void grapheMarkov (t_list_adj* list);
  * @param filename Nom du fichier contenant le graphe à afficher.
  */
 void printGraph(const char *filename);
+void printDiagrammeHasse(t_partition part,t_list_adj graph);
+void carac_graphe_markov(t_list_adj graph);
 
 #endif //GRAPHES_H
