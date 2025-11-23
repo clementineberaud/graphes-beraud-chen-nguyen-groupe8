@@ -45,5 +45,7 @@ void push(t_stacklist* stack, int val);
 int pop(t_stacklist* stack);
 
 void parcours(int v, t_list_adj* G, t_tab_tarjan tab, t_stacklist* P, int* num, int** partition, int* nbCFC);
+t_partition tarjan(t_list_adj* graph);
+
 
 #endif //TARJAN_H
