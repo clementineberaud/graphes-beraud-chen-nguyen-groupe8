@@ -7,37 +7,38 @@
 #include "list.h"
 
 typedef struct {
-    int num_sommet;
-    int numero;
-    int num_accessible;
-    int indicateur;
-
+    int num_sommet;   // numéro du sommet dans le graphe
+    int numero;    // Numéro temporaire attribué lors du parcours DFS
+    int num_accessible;    // plus petit numéro accessible depuis ce sommet
+    int indicateur;    // 0 si le sommet n'est pas dans la pile, 1 si il y est
 } t_tarjan_vertex;
 
+// Type pointeur vers un tableau de sommets Tarjan
 typedef t_tarjan_vertex* t_tab_tarjan;
 
 typedef struct s_stackcell {
-    struct s_stackcell* next;
-    int sommet;
+    struct s_stackcell* next;    // pointeur vers la cellule suivante
+    int sommet;    // numéro du sommet stocké dans la cellule
 } t_stackcell;
 
 typedef struct s_stacklist {
-    t_stackcell* head;
+    t_stackcell* head;    // tête de la pile
 } t_stacklist;
 
 t_stacklist create_stack();
 
 typedef struct {
-    char nom_classe;
-    int nb_sommet;
+    char nom_classe;    // nom de la classe
+    int nb_sommet;    // nombre de sommets dans cette classe
 } t_classe;
 
+// Tableau dynamique de classes (graphe de classes)
 typedef t_classe* t_graphe;
 
 typedef struct {
-    int** list_sommet;
-    int* nb_sommet;
-    int nb_composant;
+    int** list_sommet;    // tableau de tableaux : liste des sommets de chaque composante
+    int* nb_sommet;    // tableau contenant le nombre de sommets de chaque composante
+    int nb_composant;    // nombre de composantes fortement connexes
 } t_partition;
 
 
