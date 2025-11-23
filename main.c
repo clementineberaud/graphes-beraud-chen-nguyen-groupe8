@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "list.h"
-//#include "hasse.h"
 #include "graphes.h"
+#include "hasse.h"
 #include "utils.h"
 
 
