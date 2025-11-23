@@ -15,15 +15,12 @@ typedef struct {
 
 
 /**
- * @brief Vérifie si un lien (a → b) existe déjà dans un tableau de liens.
+ * @brief Vérifie si un lien entre deux sommets existe déjà dans le tableau de liens.
  *
- * Parcourt le tableau dynamique de liens et compare les champs `from`
- * et `to` pour déterminer si le lien recherché est présent.
- *
- * @param a Sommet de départ.
- * @param b Sommet d'arrivée.
- * @param tab Tableau de liens dans lequel effectuer la recherche.
- * @return 1 si le lien est trouvé, 0 sinon.
+ * @param a Sommet de départ
+ * @param b Sommet d'arrivée
+ * @param tab Pointeur vers le tableau de liens
+ * @return int 1 si le lien existe, 0 sinon
  */
 int link_in_list (int a, int b, t_link_array *list);
 
@@ -40,49 +37,60 @@ int link_in_list (int a, int b, t_link_array *list);
  */
 t_link * createLink (int a, int b);
 
+
+
+
+/**
+ * @brief Crée un tableau associant à chaque sommet le numéro de sa classe.
+ *
+ * @param par Partition des composantes fortement connexes
+ * @param graph Graphe sous forme de liste d'adjacence
+ * @return int* Tableau où chaque case i contient la classe du sommet i+1
+ */
 int* tab_classes (t_partition par, t_list_adj graph);
 
 
 
-
 /**
- * @brief Ajoute un nouveau lien (a → b) dans un tableau de liens.
+ * @brief Ajoute un lien entre deux sommets dans le tableau de liens.
  *
- * Parcourt la taille logique du tableau pour trouver la prochaine
- * position disponible, puis y copie le lien créé.
- *
- * @param tab Tableau de liens dans lequel insérer le nouveau lien.
- * @param a Sommet source.
- * @param b Sommet destination.
+ * @param tab Pointeur vers le tableau de liens
+ * @param a Sommet de départ
+ * @param b Sommet d'arrivée
  */
 void addLink (t_link_array * list, int a, int b);
 
 
+
 /**
- * @brief Construit le diagramme de Hasse des classes du graphe.
+ * @brief Construit le diagramme de Hasse sous forme de tableau de liens pour les classes.
  *
- * Pour chaque arc du graphe, si les sommets appartiennent à des classes
- * différentes, un lien entre classes est ajouté dans la structure résultante.
- * Ceci permet de représenter l’ordre entre composantes fortement connexes.
- *
- * @param graph Structure de liste d'adjacence du graphe.
- * @param par Partition des sommets en composantes fortement connexes.
- * @return t_link_array* Tableau de liens représentant le diagramme de Hasse.
+ * @param graph Graphe sous forme de liste d'adjacence
+ * @param par Partition des composantes fortement connexes
+ * @return t_link_array* Tableau de liens représentant le diagramme de Hasse
  */
 t_link_array * diagramme_hasse (t_list_adj graph, t_partition par);
 
 
 
 /**
- * @brief Supprime les liens transitifs dans un diagramme de Hasse.
+ * @brief Supprime les liens transitifs d'un tableau de liens pour ne garder que les liens directs.
  *
- * Si un lien A → C est implicite via A → B et B → C, la fonction supprime
- * le lien A → C afin de conserver uniquement les liens indispensables pour
- * représenter l'ordre partiel.
- *
- * @param p_link_array Tableau de liens à simplifier.
+ * @param p_link_array Pointeur vers le tableau de liens
  */
 void removeTransitiveLinks(t_link_array *p_link_array);
+
+
+
+
+/**
+ * @brief Compte le nombre de successeurs d'un sommet donné dans le graphe.
+ *
+ * @param graph Graphe sous forme de liste d'adjacence
+ * @param sommet Indice du sommet
+ * @return int Nombre de sommets accessibles depuis le sommet
+ */
+int cpt_sommet(t_list_adj graph, int sommet);
 
 
 #endif
