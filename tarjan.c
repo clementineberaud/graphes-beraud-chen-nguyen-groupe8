@@ -30,35 +30,7 @@ t_stacklist create_stack() // créer pile
 
 
 
-t_stackcell *create_cell(int val)
-{
-    t_stackcell *newCell = (t_stackcell*) malloc(sizeof(t_stackcell));
-    newCell->sommet = val;
-    newCell->next = NULL;
-    return newCell;
-}
-
-
-void push(t_stacklist *stack, int val)
-{
-    t_stackcell *cell = create_cell(val);
-    cell->next = stack->head;
-    stack->head = cell;
-}
-
-
-int top(t_stacklist* stack)
-{
-    if (stack->head == NULL) {
-        printf("Top from empty stack\n");
-        exit(EXIT_FAILURE);
-    }
-    return stack->head->sommet;
-}
-
-
-int pop(t_stacklist* stack)
-{
+int pop(t_stacklist* stack) {
     if (stack == NULL || stack->head == NULL) {
         printf("Pop from empty stack\n");
         exit(EXIT_FAILURE);
@@ -68,6 +40,7 @@ int pop(t_stacklist* stack)
     stack->head = tmp->next;
     free(tmp);
     return val;
+}
 
 t_stackcell *create_cell(int val)
 {
