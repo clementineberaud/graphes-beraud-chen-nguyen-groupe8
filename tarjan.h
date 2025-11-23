@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+#include "list.h"
+
 typedef struct s_tarjan_vertex {
     int num_sommet;
     int numero;
@@ -22,8 +24,6 @@ typedef struct s_stackcell {
 typedef struct s_stacklist {
     t_stackcell* head;
 } t_stacklist;
-
-typedef t_tarjan_vertex* t_graphe;
 
 t_stacklist create_stack();
 
