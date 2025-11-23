@@ -9,7 +9,9 @@ t_tarjan_vertex *graph_to_tab(t_list_adj graph)
 {
     t_tarjan_vertex *tab = (t_tarjan_vertex*) malloc(sizeof(t_tarjan_vertex) * graph.taille);
     for (int i = 0; i < graph.taille; i++) {
+
         tab[i].num_sommet = i + 1;
+
         tab[i].numero = -1;
         tab[i].num_accessible = -1;
         tab[i].indicateur = -1;
@@ -18,12 +20,14 @@ t_tarjan_vertex *graph_to_tab(t_list_adj graph)
 }
 
 
-t_stacklist create_stack()
+t_stacklist create_stack() // créer pile
+
 {
     t_stacklist stack;
-    stack.head = NULL;
+    stack.head = NULL; // initialisation de la pile à NULL
     return stack;
 }
+
 
 
 t_stackcell *create_cell(int val)
@@ -64,6 +68,30 @@ int pop(t_stacklist* stack)
     stack->head = tmp->next;
     free(tmp);
     return val;
+
+t_stackcell *create_cell(int val)
+{
+    t_stackcell *newCell = (t_stackcell*) malloc(sizeof(t_stackcell));
+    newCell->sommet = val; // on donne la valeur val au nouveau sommet
+    newCell->next = NULL;
+    return newCell;
+}
+
+void push(t_stacklist *stack, int val) // ajout d'une valeur dans pile (au début de la liste)
+{
+    t_cell *cell = create_cell(val);
+    cell->next = stack->head; // on fait pointer cell->next vers l'ancienne tête
+    stack->head = cell; // on met à jour la tête de la pile
+
+}
+
+int top(t_stacklist* stack)
+{
+    if (stack->head == NULL) { // pile vide
+        printf("Pop from empty stack\n");
+        exit(EXIT_FAILURE);
+    }
+    return stack->head->sommet; // 	retourne la valeur du sommet (dernier élément ajouté)
 }
 
 
@@ -206,4 +234,5 @@ t_partition partition_test() { //fonction test si les fonction tarjan et parcour
     part.list_sommet[5][0] = 10;
     return part;
 }
+
 
