@@ -4,21 +4,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-
 #include "list.h"
 
-typedef struct s_tarjan_vertex {
+typedef struct {
     int num_sommet;
     int numero;
     int num_accessible;
-    bool indicateur;
-}t_tarjan_vertex;
+    int indicateur;
+} t_tarjan_vertex;
 
 typedef t_tarjan_vertex* t_tab_tarjan;
 
 typedef struct s_stackcell {
-    t_stackcell* head;
-    t_tarjan_vertex sommet;
+    struct s_stackcell* next;
+    int sommet;
 } t_stackcell;
 
 typedef struct s_stacklist {
@@ -27,10 +26,10 @@ typedef struct s_stacklist {
 
 t_stacklist create_stack();
 
-typedef struct s_classe {
+typedef struct {
     char nom_classe;
     int nb_sommet;
-}t_classe;
+} t_classe;
 
 typedef t_classe* t_graphe;
 
@@ -40,12 +39,14 @@ typedef struct {
     int nb_composant;
 } t_partition;
 
+t_tarjan_vertex *graph_to_tab(t_list_adj graph);
+t_stacklist create_stack();
 void push(t_stacklist* stack, int val);
-
+int top(t_stacklist* stack);
 int pop(t_stacklist* stack);
 
-void parcours(int v, t_list_adj* G, t_tab_tarjan tab, t_stacklist* P, int* num, int** partition, int* nbCFC);
-t_partition tarjan(t_list_adj* graph);
-
-
-#endif //TARJAN_H
+void parcours(t_tarjan_vertex* tab, int v_index, t_list_adj graph, t_stacklist* P, int* num, t_partition* partition);
+t_partition tarjan(t_list_adj graph);
+void print_tarjan (t_partition part);
+t_partition partition_test();
+#endif //TARJAN.H
