@@ -69,14 +69,11 @@ float diff_matrices(float **M1, float **M2, int n) // cf formule sujet
 
 
 t_matrix subMatrix(t_matrix matrix, t_partition part, int compo_index){
-    int nombre_sommet = part.nb_sommet[compo_index];       // nombre de sommets dans la composante
+    int nombre_sommet = part.nb_sommet[compo_index]; // nombre de sommets dans la composante
     int* sommets = part.list_sommet[compo_index]; // tableau des sommets
 
-    // Allocation de la sous-matrice n x n
-    t_matrix sub = malloc(nombre_sommet * sizeof(float*));
-    for (int i = 0; i < nombre_sommet; i++) {
-        sub[i] = malloc(nombre_sommet * sizeof(float));
-    }
+    // Création d'une sous-matrice
+    t_matrix sub = create_matrix_zero(nombre_sommet);
 
     // Remplissage de la sous-matrice
     for (int i = 0; i < nombre_sommet; i++) {
