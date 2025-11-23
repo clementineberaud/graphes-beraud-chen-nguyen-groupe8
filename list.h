@@ -2,18 +2,18 @@
 #define __LIST_H__
 
 typedef struct s_cell {
-  int sommet;
-  float proba;
-  struct s_cell* next;
+  int sommet;   // numéro du sommet
+  float proba;    // probabilité associée à l’arête vers ce sommet
+  struct s_cell* next;   // pointeur vers la cellule suivante dans la liste
 } t_cell;
 
 typedef struct s_list {
-  t_cell* head;
+  t_cell* head;    // tête de la liste chaînée représentant les successeurs d’un sommet
 } t_list;
 
 typedef struct s_list_adj {
-  t_list *T;
-  int taille;
+  t_list *T;     // tableau de listes représentant les successeurs de chaque sommet
+  int taille;    // nombre total de sommets dans le graphe
 } t_list_adj;
 
 
