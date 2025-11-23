@@ -34,6 +34,12 @@ typedef struct s_classe {
 
 typedef t_classe* t_graphe;
 
+typedef struct {
+    int** list_sommet;
+    int* nb_sommet;
+    int nb_composant;
+} t_partitions;
+
 void push(t_stacklist* stack, int val);
 
 int pop(t_stacklist* stack);
