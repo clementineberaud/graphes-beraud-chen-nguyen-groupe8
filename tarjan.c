@@ -80,10 +80,10 @@ void parcours(int sommet_curr, t_list_adj* graph_adj, t_tab_tarjan tab, t_stackl
 
 
 
-t_partitions tarjan(t_list_adj* graph){
+t_partition tarjan(t_list_adj* graph){
     int taille = graph->taille;
 
-    t_partitions part;
+    t_partition part;
     part.nb_composant = 0;
     part.list_sommet = malloc(taille * sizeof(int*));
     part.nb_sommet = malloc(taille * sizeof(int));
